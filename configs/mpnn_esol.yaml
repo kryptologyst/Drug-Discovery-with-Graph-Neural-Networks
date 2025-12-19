@@ -1,0 +1,47 @@
+# MPNN Configuration for ESOL Dataset
+model:
+  name: "MPNN"
+  node_dim: 9  # Will be set automatically from dataset
+  edge_dim: 3  # Will be set automatically from dataset
+  hidden_dim: 64
+  output_dim: 1
+  num_layers: 3
+  dropout: 0.1
+  use_batch_norm: true
+  pooling: "mean"
+
+data:
+  dataset: "ESOL"
+  data_dir: "./data"
+  batch_size: 32
+  num_workers: 4
+  scaffold_split: true
+  test_size: 0.2
+  val_size: 0.1
+  random_state: 42
+  use_rdkit_features: true
+  max_atoms: 200
+
+training:
+  epochs: 100
+  lr: 0.001
+  weight_decay: 1e-4
+  optimizer: "adam"
+  scheduler:
+    name: "plateau"
+    patience: 10
+    factor: 0.5
+  patience: 20
+  grad_clip: 1.0
+
+evaluation:
+  save_predictions: true
+  plot_results: true
+  compare_models: false
+
+logging:
+  use_wandb: false
+  log_interval: 10
+
+device:
+  auto: true
